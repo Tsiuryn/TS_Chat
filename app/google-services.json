@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "776977590187",
+    "project_id": "chat-a831d",
+    "storage_bucket": "chat-a831d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776977590187:android:31febde0340eb8cbbf14ee",
+        "android_client_info": {
+          "package_name": "com.ts.alex.ts_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776977590187-h1l0nskoavrvrhppehm5sgmf1bcgplg4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqTtzE1befA143VybnQ91YRsSCW7qJibI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776977590187-h1l0nskoavrvrhppehm5sgmf1bcgplg4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
