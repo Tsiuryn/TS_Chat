@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 
-class ChatAdapter(context: Context, resource: Int, val listMessages: List<Message>) :
+class ChatAdapter(context: Context, resource: Int, private val listMessages: ArrayList<Message>) :
     ArrayAdapter<Message>(context, resource, listMessages) {
 
 
@@ -43,6 +43,14 @@ class ChatAdapter(context: Context, resource: Int, val listMessages: List<Messag
         name.text = message.name
 
         return myView
+    }
+
+    fun  addMessage (message: Message?){
+        if(message != null){
+            listMessages.add(message)
+            notifyDataSetChanged()
+        }
+
     }
 
 }
