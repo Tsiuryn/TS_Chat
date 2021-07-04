@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">TS_Chat</string>
-    <string name="title_activity_main">MainActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    
+    <string name="sign_in">Sign in</string>
+    <string name="log_in">Log in</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="or_sign_in">Or Sign in</string>
+    <string name="or_log_in">Or Log in</string>
+    <string name="error_name">The field can\'t be empty!</string>
+    <string name="error_email">The email isn\'t valid!</string>
+    <string name="error_psw">The password isn\'t valid!</string>
 </resources>

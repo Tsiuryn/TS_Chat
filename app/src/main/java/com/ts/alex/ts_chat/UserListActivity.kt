@@ -14,7 +14,7 @@ import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.ts.alex.ts_chat.ChatActivity.Companion.RECIPIENT_USER_ID
 import com.ts.alex.ts_chat.ChatActivity.Companion.USER_NAME
-import java.text.FieldPosition
+import com.ts.alex.ts_chat.domain.models.User
 
 class UserListActivity : AppCompatActivity() {
 

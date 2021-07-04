@@ -18,6 +18,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
+import com.ts.alex.ts_chat.domain.models.Message
+import com.ts.alex.ts_chat.domain.models.User
 
 class ChatActivity : AppCompatActivity() {
 

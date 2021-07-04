@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.ts.alex.ts_chat.domain.models.User
 
 class UserAdapter(
     private val list: ArrayList<User>,

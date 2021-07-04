@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.ts.alex.ts_chat.ChatActivity.Companion.USER_NAME
+import com.ts.alex.ts_chat.domain.models.User
 
 class SignInActivity : AppCompatActivity() {
 
@@ -105,7 +106,8 @@ class SignInActivity : AppCompatActivity() {
             name = vName.text.toString().trim(),
             email = user?.email?: "",
             id =  user?.uid?: ""
-        ))
+        )
+        )
     }
 
     fun toogleLoginMode(view: View) {

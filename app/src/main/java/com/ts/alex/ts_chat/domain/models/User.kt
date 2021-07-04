@@ -1,4 +1,4 @@
-package com.ts.alex.ts_chat
+package com.ts.alex.ts_chat.domain.models
 
 class User(){
     var name: String? = null
