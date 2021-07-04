@@ -1,27 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/vImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/vText"
+    <LinearLayout
+        android:id="@+id/myMessageContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Message" />
+        android:layout_margin="4dp"
+        android:background="@drawable/my_message_bubble"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/vName"
+        <ImageView
+            android:id="@+id/myImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="250dp" />
+
+        <TextView
+            android:id="@+id/myMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="100dp"
+            android:padding="4dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/yourMessageContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name" />
+        android:layout_margin="4dp"
+        android:background="@drawable/your_message_bubble"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/myMessageContainer">
+
+        <ImageView
+            android:id="@+id/yourImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="250dp" />
+
+        <TextView
+            android:id="@+id/yourMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="100dp"
+            android:padding="4dp" />
+
+    </LinearLayout>
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
