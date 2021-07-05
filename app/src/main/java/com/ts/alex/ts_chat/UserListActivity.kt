@@ -15,6 +15,7 @@ import com.google.firebase.ktx.Firebase
 import com.ts.alex.ts_chat.ChatActivity.Companion.RECIPIENT_USER_ID
 import com.ts.alex.ts_chat.ChatActivity.Companion.USER_NAME
 import com.ts.alex.ts_chat.domain.models.User
+import com.ts.alex.ts_chat.presenter.screens.list_users.adapter.UserAdapter
 
 class UserListActivity : AppCompatActivity() {
 

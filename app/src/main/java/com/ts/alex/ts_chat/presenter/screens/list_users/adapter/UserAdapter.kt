@@ -1,4 +1,4 @@
-package com.ts.alex.ts_chat
+package com.ts.alex.ts_chat.presenter.screens.list_users.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.ts.alex.ts_chat.R
 import com.ts.alex.ts_chat.domain.models.User
 
 class UserAdapter(

@@ -20,6 +20,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import com.ts.alex.ts_chat.domain.models.Message
 import com.ts.alex.ts_chat.domain.models.User
+import com.ts.alex.ts_chat.presenter.screens.chat.adapter.MessageAdapter
 
 class ChatActivity : AppCompatActivity() {
 

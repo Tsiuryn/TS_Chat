@@ -1,21 +1,27 @@
 package com.ts.alex.ts_chat.presenter.screens.sign_in
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import com.ts.alex.ts_chat.R
 import com.ts.alex.ts_chat.databinding.FragmentSignInBinding
+import com.ts.alex.ts_chat.presenter.screens.USER_NAME
+import com.ts.alex.ts_chat.presenter.screens.list_users.ListUsersFragment
 import com.ts.alex.ts_chat.presenter.screens.sign_in.util.isValidEmail
 import com.ts.alex.ts_chat.presenter.screens.sign_in.util.isValidName
 import com.ts.alex.ts_chat.presenter.screens.sign_in.util.isValidPassword
 import com.ts.alex.ts_chat.presenter.screens.sign_in.util.isValidRptPsw
+import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignInFragment : Fragment() {
@@ -28,6 +34,7 @@ class SignInFragment : Fragment() {
     private lateinit var vRptPsw: TextInputLayout
     private lateinit var btnSignIn: MaterialButton
     private lateinit var tabLogIn: TextView
+    private lateinit var vLogo: ImageView
 
     private var isActive = false
     private var userName = ""
@@ -47,10 +54,15 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        checkUser()
         bingFields()
         observeVm()
         textChangeListener()
         textOnFocusChangeListener()
+    }
+
+    private fun checkUser() {
+        if(viewModel.checkUser()) nextPage(userName)
     }
 
     private fun bingFields() {
@@ -61,6 +73,7 @@ class SignInFragment : Fragment() {
         btnSignIn = binding.vBtnSignIn
         btnSignIn = binding.vBtnSignIn
         tabLogIn = binding.vTVLogIn
+        vLogo = binding.vLogo
         setUpClick()
     }
 
@@ -68,12 +81,32 @@ class SignInFragment : Fragment() {
         btnSignIn.setOnClickListener{
             if(validateFields()){
                 Toast.makeText(requireContext(), "All fields are valid", Toast.LENGTH_SHORT).show()
+                if(!isActive){
+                    viewModel.createUser(name = userName, email = userEmail, password = userPsw)
+                }else{
+                    viewModel.signInUser(password = userPsw, email = userEmail)
+                }
             }
 
         }
         tabLogIn.setOnClickListener{
             tabOnClick()
+        }
 
+        vLogo.setOnLongClickListener {
+            if(!isActive){
+                viewModel.createUser(
+                    name = "Garold",
+                    email = "test@test.com",
+                    password = "123456"
+                )
+            } else{
+                viewModel.signInUser(
+                    password = "123456",
+                    email = "test@test.com"
+                )
+            }
+            return@setOnLongClickListener true
         }
     }
 
@@ -92,7 +125,25 @@ class SignInFragment : Fragment() {
     }
 
     private fun observeVm(){
+        lifecycleScope.launchWhenStarted {
+            viewModel.registrationResult.collect { task ->
+                if(task.isSuccess){
+                    Toast.makeText(requireContext(), "Registration is Success!", Toast.LENGTH_SHORT).show()
+                    nextPage(userName)
+                }else{
+                    Toast.makeText(requireContext(), "Registration failed: ${task.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
+    private fun nextPage(userName: String) {
+        val listUsersFragment = ListUsersFragment()
+        val bundle = Bundle()
+        bundle.putString(USER_NAME, userName)
+        listUsersFragment.arguments = bundle
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.vMainContainer, listUsersFragment).commit()
     }
 
     private fun textChangeListener(){

@@ -1,4 +1,4 @@
-package com.ts.alex.ts_chat
+package com.ts.alex.ts_chat.presenter.screens.chat.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ts.alex.ts_chat.R
 import com.ts.alex.ts_chat.domain.models.Message
 
 class MessageAdapter(

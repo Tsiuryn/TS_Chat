@@ -14,7 +14,7 @@ class ChatApp: Application() {
         super.onCreate()
         startKoin {
             androidContext(applicationContext)
-            androidLogger(Level.DEBUG)
+            androidLogger(Level.ERROR)
             modules(listOf(singleModule))
         }
     }
