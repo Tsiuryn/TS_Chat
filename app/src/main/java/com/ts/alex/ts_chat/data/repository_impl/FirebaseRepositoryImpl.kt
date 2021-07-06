@@ -26,7 +26,7 @@ class FirebaseRepositoryImpl(
     private var storage: FirebaseStorage = FirebaseStorage.getInstance()
     private var storageReference: StorageReference = storage.reference.child("chat_images")
 
-    private lateinit var messagesDatabaseReference: DatabaseReference
+    private var messagesDatabaseReference: DatabaseReference =  db.reference.child("messages")
     private var messageChildEventListener: ChildEventListener? = null
     private var usersChildEventListener: ChildEventListener? = null
 

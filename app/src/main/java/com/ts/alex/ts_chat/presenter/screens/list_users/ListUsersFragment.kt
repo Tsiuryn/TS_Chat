@@ -1,6 +1,5 @@
 package com.ts.alex.ts_chat.presenter.screens.list_users
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -8,11 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.ts.alex.ts_chat.ChatActivity
 import com.ts.alex.ts_chat.R
-import com.ts.alex.ts_chat.SignInActivity
 import com.ts.alex.ts_chat.databinding.FragmentListUsersBinding
 import com.ts.alex.ts_chat.domain.models.User
 import com.ts.alex.ts_chat.presenter.screens.RECIPIENT_USER_ID
@@ -20,7 +15,6 @@ import com.ts.alex.ts_chat.presenter.screens.USER_NAME
 import com.ts.alex.ts_chat.presenter.screens.chat.ChatFragment
 import com.ts.alex.ts_chat.presenter.screens.list_users.adapter.UserAdapter
 import com.ts.alex.ts_chat.presenter.screens.sign_in.SignInFragment
-import com.ts.alex.ts_chat.presenter.screens.sign_in.SignInViewModel
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
