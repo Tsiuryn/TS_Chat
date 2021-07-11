@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -34,6 +35,7 @@ class SignInFragment : Fragment() {
     private lateinit var btnSignIn: MaterialButton
     private lateinit var tabLogIn: TextView
     private lateinit var vLogo: ImageView
+    private lateinit var vProgress: FrameLayout
 
     private var isActive = false
     private var userName = ""
@@ -61,7 +63,7 @@ class SignInFragment : Fragment() {
     }
 
     private fun checkUser() {
-        if(viewModel.checkUser()) nextPage(userName)
+        if (viewModel.checkUser()) nextPage(userName)
     }
 
     private fun bingFields() {
@@ -73,33 +75,34 @@ class SignInFragment : Fragment() {
         btnSignIn = binding.vBtnSignIn
         tabLogIn = binding.vTVLogIn
         vLogo = binding.vLogo
+        vProgress = binding.vProgress
         setUpClick()
     }
 
     private fun setUpClick() {
-        btnSignIn.setOnClickListener{
-            if(validateFields()){
-                Toast.makeText(requireContext(), "All fields are valid", Toast.LENGTH_SHORT).show()
-                if(!isActive){
+        btnSignIn.setOnClickListener {
+            if (validateFields()) {
+                vProgress.visibility = View.VISIBLE
+                if (!isActive) {
                     viewModel.createUser(name = userName, email = userEmail, password = userPsw)
-                }else{
+                } else {
                     viewModel.signInUser(password = userPsw, email = userEmail)
                 }
             }
 
         }
-        tabLogIn.setOnClickListener{
+        tabLogIn.setOnClickListener {
             tabOnClick()
         }
 
         vLogo.setOnLongClickListener {
-            if(!isActive){
+            if (!isActive) {
                 viewModel.createUser(
                     name = "Garold",
                     email = "test@test.com",
                     password = "123456"
                 )
-            } else{
+            } else {
                 viewModel.signInUser(
                     password = "123456",
                     email = "test@test.com"
@@ -110,12 +113,12 @@ class SignInFragment : Fragment() {
     }
 
     private fun tabOnClick() {
-        if(isActive){
+        if (isActive) {
             btnSignIn.text = getString(R.string.log_in)
             tabLogIn.text = getString(R.string.or_sign_in)
             vRptPsw.visibility = View.VISIBLE
             isActive = false
-        }else{
+        } else {
             btnSignIn.text = getString(R.string.sign_in)
             tabLogIn.text = getString(R.string.or_log_in)
             vRptPsw.visibility = View.GONE
@@ -123,14 +126,21 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun observeVm(){
+    private fun observeVm() {
         lifecycleScope.launchWhenStarted {
             viewModel.registrationResult.collect { task ->
-                if(task.isSuccess){
-                    Toast.makeText(requireContext(), "Registration is Success!", Toast.LENGTH_SHORT).show()
+                if (task.isSuccess) {
+                    Toast.makeText(requireContext(), "Registration is Success!", Toast.LENGTH_SHORT)
+                        .show()
+                    vProgress.visibility = View.GONE
                     nextPage(userName)
-                }else{
-                    Toast.makeText(requireContext(), "Registration failed: ${task.message}", Toast.LENGTH_SHORT).show()
+                } else {
+                    vProgress.visibility = View.GONE
+                    Toast.makeText(
+                        requireContext(),
+                        "Registration failed: ${task.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -145,7 +155,7 @@ class SignInFragment : Fragment() {
             .replace(R.id.vMainContainer, listUsersFragment).commit()
     }
 
-    private fun textChangeListener(){
+    private fun textChangeListener() {
         vName.editText!!.doAfterTextChanged {
             userName = it.toString()
         }
@@ -160,62 +170,65 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun textOnFocusChangeListener(){
+    private fun textOnFocusChangeListener() {
         vName.editText!!.setOnFocusChangeListener { _, hasFocus ->
-            if(hasFocus){
+            if (hasFocus) {
                 vName.error = ""
-            } else{
+            } else {
                 setErrorName()
             }
         }
         vEmail.editText!!.setOnFocusChangeListener { _, hasFocus ->
-            if(hasFocus){
+            if (hasFocus) {
                 vEmail.error = ""
-            } else{
+            } else {
                 setErrorEmail()
             }
         }
         vPsw.editText!!.setOnFocusChangeListener { _, hasFocus ->
-            if(hasFocus){
+            if (hasFocus) {
                 vPsw.error = ""
-            } else{
+            } else {
                 setErrorPsw()
             }
         }
         vRptPsw.editText!!.setOnFocusChangeListener { _, hasFocus ->
-            if(hasFocus){
+            if (hasFocus) {
                 vRptPsw.error = ""
-            } else{
+            } else {
                 setErrorRptPsw()
             }
         }
     }
 
-    private fun setErrorName(): Boolean{
+    private fun setErrorName(): Boolean {
         val isValidName = isValidName(userName)
-        if(!isValidName){
+        if (!isValidName) {
             vName.error = getString(R.string.error_name)
         } else vName.error = ""
         return isValidName
     }
-    private fun setErrorEmail(): Boolean{
+
+    private fun setErrorEmail(): Boolean {
         val isValidEmail = isValidEmail(userEmail)
-        if(!isValidEmail){
+        if (!isValidEmail) {
             vEmail.error = getString(R.string.error_email)
         } else vEmail.error = ""
         return isValidEmail
     }
-    private fun setErrorPsw(): Boolean{
+
+    private fun setErrorPsw(): Boolean {
         val isValidPassword = isValidPassword(userPsw)
-        if(!isValidPassword){
+        if (!isValidPassword) {
             vPsw.error = getString(R.string.error_psw)
         } else vPsw.error = ""
         return isValidPassword
     }
-    private fun setErrorRptPsw(): Boolean{
-        if(isActive) return true
+
+    private fun setErrorRptPsw(): Boolean {
+        if (isActive) return true
         val isValidRptPsw = isValidRptPsw(userPsw, userRptPsw)
-        if(!isValidRptPsw){
+        if (!isValidRptPsw) {
             vRptPsw.error = getString(R.string.error_psw)
         } else vRptPsw.error = ""
         return isValidRptPsw
