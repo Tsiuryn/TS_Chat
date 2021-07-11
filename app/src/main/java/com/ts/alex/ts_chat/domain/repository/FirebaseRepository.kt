@@ -21,7 +21,7 @@ interface FirebaseRepository {
 
     fun signOutUser()
 
-    fun sendMessage(message: Message)
+    suspend fun sendMessage(message: Message, recipientToken: String)
 
     fun setUpUserChildEventListener(callback: (String) -> Unit)
 

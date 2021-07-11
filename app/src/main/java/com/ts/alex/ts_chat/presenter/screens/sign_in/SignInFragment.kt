@@ -1,7 +1,6 @@
 package com.ts.alex.ts_chat.presenter.screens.sign_in
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import com.ts.alex.ts_chat.R
+import com.ts.alex.ts_chat.USER_NAME
 import com.ts.alex.ts_chat.databinding.FragmentSignInBinding
-import com.ts.alex.ts_chat.presenter.screens.USER_NAME
 import com.ts.alex.ts_chat.presenter.screens.list_users.ListUsersFragment
 import com.ts.alex.ts_chat.presenter.screens.sign_in.util.isValidEmail
 import com.ts.alex.ts_chat.presenter.screens.sign_in.util.isValidName

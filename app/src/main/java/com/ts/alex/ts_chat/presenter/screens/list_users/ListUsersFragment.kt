@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ts.alex.ts_chat.R
+import com.ts.alex.ts_chat.RECIPIENT_USER_ID
+import com.ts.alex.ts_chat.RECIPIENT_TOKEN
+import com.ts.alex.ts_chat.USER_NAME
 import com.ts.alex.ts_chat.databinding.FragmentListUsersBinding
 import com.ts.alex.ts_chat.domain.models.User
-import com.ts.alex.ts_chat.presenter.screens.RECIPIENT_USER_ID
-import com.ts.alex.ts_chat.presenter.screens.USER_NAME
 import com.ts.alex.ts_chat.presenter.screens.chat.ChatFragment
 import com.ts.alex.ts_chat.presenter.screens.list_users.adapter.UserAdapter
 import com.ts.alex.ts_chat.presenter.screens.sign_in.SignInFragment
@@ -74,6 +75,7 @@ class ListUsersFragment: Fragment() {
         val chatFragment = ChatFragment()
         val bundle = Bundle()
         bundle.putString(RECIPIENT_USER_ID, listUsers[position].id)
+        bundle.putString(RECIPIENT_TOKEN, listUsers[position].token)
         bundle.putString(USER_NAME, userName)
         chatFragment.arguments = bundle
         requireActivity().supportFragmentManager.beginTransaction()

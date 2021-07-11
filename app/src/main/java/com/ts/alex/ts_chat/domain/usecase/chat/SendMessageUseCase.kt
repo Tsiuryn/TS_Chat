@@ -8,7 +8,10 @@ class SendMessageUseCase(
     private val fbRepository: FirebaseRepository
 ) {
 
-    operator fun invoke(message: Message){
-        fbRepository.sendMessage(message)
+    suspend operator fun invoke(message: Message, recipientToken: String) {
+        fbRepository.sendMessage(
+            message = message,
+            recipientToken = recipientToken
+        )
     }
 }

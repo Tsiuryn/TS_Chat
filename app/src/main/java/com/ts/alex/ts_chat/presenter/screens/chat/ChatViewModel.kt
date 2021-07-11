@@ -28,8 +28,10 @@ class ChatViewModel(
     val observeMessages: Flow<Message>
         get() = _observeMessages
 
-    fun sendMessage(message: Message){
-        sendMessageUseCase(message = message)
+    fun sendMessage(message: Message, recipientToken: String){
+        viewModelScope.launch {
+            sendMessageUseCase(message = message, recipientToken = recipientToken)
+        }
     }
 
     fun setUpMessageChildEventListener(recipient: String){

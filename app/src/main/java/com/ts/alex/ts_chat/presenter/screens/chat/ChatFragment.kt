@@ -18,12 +18,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.ts.alex.ts_chat.*
 import com.ts.alex.ts_chat.databinding.FragmentChatBinding
 import com.ts.alex.ts_chat.domain.models.Message
-import com.ts.alex.ts_chat.presenter.screens.MIMETYPE_IMAGES
-import com.ts.alex.ts_chat.presenter.screens.RC_IMAGE_PICKER
-import com.ts.alex.ts_chat.presenter.screens.RECIPIENT_USER_ID
-import com.ts.alex.ts_chat.presenter.screens.USER_NAME
 import com.ts.alex.ts_chat.presenter.screens.chat.adapter.MessageAdapter
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -44,6 +41,7 @@ class ChatFragment : Fragment() {
 
     private var userName: String = "Default User"
     private var recipient: String = ""
+    private var recipientToken: String = ""
 
     private val getContent: ActivityResultLauncher<String> =
         registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri: Uri? ->
@@ -71,6 +69,7 @@ class ChatFragment : Fragment() {
 
         userName = requireArguments().getString(USER_NAME) ?: ""
         recipient = requireArguments().getString(RECIPIENT_USER_ID) ?: ""
+        recipientToken = requireArguments().getString(RECIPIENT_TOKEN) ?: ""
         recyclerView = binding.vListMessagesRecycler
         buildMessageList()
 
@@ -120,7 +119,8 @@ class ChatFragment : Fragment() {
                     sender = null,
                     recipient = recipient,
                     imageUrl = null
-                )
+                ),
+                recipientToken = recipientToken
             )
 
             inputText.setText("")
@@ -150,6 +150,9 @@ class ChatFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
+    /**
+     * This method is deprecated. We used another way, new api.
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_IMAGE_PICKER && resultCode == AppCompatActivity.RESULT_OK) {
