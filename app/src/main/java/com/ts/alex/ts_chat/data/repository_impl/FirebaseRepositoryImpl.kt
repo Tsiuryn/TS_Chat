@@ -59,9 +59,20 @@ class FirebaseRepositoryImpl(
     ) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(activity) { task ->
-                callback(task)
                 if (task.isSuccessful) {
-                    createUser(auth.currentUser, name)
+                    FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+                        val user = auth.currentUser
+                        userDatabaseReference.push().setValue(
+                            User(
+                                name = name,
+                                email = user?.email ?: "",
+                                id = user?.uid ?: "",
+                                token = token
+                            )
+                        )
+                        callback(task)
+
+                    }
                 }
             }
 
@@ -69,22 +80,6 @@ class FirebaseRepositoryImpl(
     }
 
     override fun isUserRegistered() = auth.currentUser != null
-
-    private fun createUser(user: FirebaseUser?, name: String) {
-        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
-            val user = User(
-                name = name,
-                email = user?.email ?: "",
-                id = user?.uid ?: "",
-                token = token
-            )
-            userDatabaseReference.push().setValue(
-                user
-            )
-        }
-
-    }
-
 
     override fun getUsers(callback: (User) -> Unit) {
         userDatabaseReference = FirebaseDatabase.getInstance().reference.child("users")
